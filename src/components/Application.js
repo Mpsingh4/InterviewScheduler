@@ -1,8 +1,6 @@
-import React from "react";
-
+import React, { useState } from "react";
 import "components/Application.scss";
 import DayList from "./DayList";
-import DayListItem from "./DayListItem";
 
 const days = [
   {
@@ -22,33 +20,39 @@ const days = [
   },
 ];
 
-
 export default function Application(props) {
+  const [day, setDay] = useState("Monday"); // default day set to mon
+
+  console.log(day);
+
   return (
     <main className="layout">
       <section className="sidebar">
-       <img
-  className="sidebar--centered"
-  src="images/logo.png"
-  alt="Interview Scheduler"
-/>
-<hr className="sidebar__separator sidebar--centered" />
-<nav className="sidebar__menu">
-<DayList
-  days={days}
-  day={"Monday"}
-  setDay={day => console.log(day)}
-/>
-</nav>
-<img
-  className="sidebar__lhl sidebar--centered"
-  src="images/lhl.png"
-  alt="Lighthouse Labs"
-/>
+        <img
+          className="sidebar--centered"
+          src="images/logo.png"
+          alt="Interview Scheduler"
+        />
+        <hr className="sidebar__separator sidebar--centered" />
+        <nav className="sidebar__menu">
+          <DayList
+            days={days}
+            day={day} // pass value rep by state
+            setDay={setDay} // pass func that updates state
+          />
+        </nav>
+        <img
+          className="sidebar__lhl sidebar--centered"
+          src="images/lhl.png"
+          alt="Lighthouse Labs"
+        />
       </section>
       <section className="schedule">
-        {/* Replace this with the schedule elements durint the "The Scheduler" activity. */}
+        {/* Replace this with the schedule elements during the "The Scheduler" activity. */}
       </section>
     </main>
   );
 }
+
+
+
