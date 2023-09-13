@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
@@ -10,10 +10,14 @@ import DayList from "components/DayList";
 import InterviewerListItem from "components/InterviewerListItem";
 import InterviewerList from "components/InterviewerList";
 
-import Appointment from "components/Appointment/index.js";
+import Appointment from "components/Appointment/index";
 import Header from "components/Appointment/header";
 import Empty from "components/Appointment/empty";
 import Show from "components/Appointment/show";
+import Confirm from "components/Appointment/confirm";
+import Status from "components/Appointment/status";
+import Error from "components/Appointment/error";
+import Form from "components/Appointment/form";
 
 storiesOf("Button", module)
   .addParameters({
@@ -104,4 +108,91 @@ storiesOf("Appointment", module)
   .add("Appointment", () => <Appointment />)
   .add("Appointment with Time", () => <Appointment time="12pm" />)
   .add("Header", () => <Header time="12pm" />)
-  .add("Empty", () => <Empty onAdd={action("onAdd")} />);
+  .add("Empty", () => <Empty onAdd={action("onAdd")} />)
+
+  const interviews = [
+    {
+      student: "Lydia Miller-Jones",
+      interviewer: { name: "Sylvia Palmer" },
+    },
+    {
+      student: "Fogell McLovin",
+      interviewer: { name: "Carter Lee" },
+    }
+  ];
+  
+
+  storiesOf("Show", module)
+  .addParameters({
+    backgrounds: [{ name: "white", value: "#fff", default: true }],
+  })
+  .add("Appointment Show", () => (
+    interviews.map((interview, index) => (
+    <Show
+      key={index}
+      student={interview.student}
+      interviewer={interview.interviewer}
+      onEdit={action("onEdit")}
+      onDelete={action("onDelete")}
+    />
+    ))
+  ));
+
+  storiesOf("Confirm", module)
+  .addParameters({
+    backgrounds: [{ name: "white", value: "#fff", default: true }],
+  })
+  .add("Confirm Appointment", () => (
+    <Confirm
+      message="Delete the appointment?"
+      onConfirm={action("onConfirm")}
+      onCancel={action("onCancel")}
+    />
+  ));
+
+  storiesOf("Status", module)
+  .addParameters({
+    backgrounds: [{ name: "white", value: "#fff", default: true }],
+  })
+  .add("Status", () => <Status message="Deleting" />);
+
+  storiesOf("Error", module)
+  .addParameters({
+    backgrounds: [{ name: "white", value: "#fff", default: true }],
+  })
+  .add("Error", () => (
+    <Error message="Could not delte appointment" onClose={action("onClose")}/>
+  ));
+
+
+
+  storiesOf('Form', module)
+  .add('Create', () => (
+    <Form
+      interviewers={interviewers}
+      onSave={(studentName, interviewerId) => {
+        console.log('Creating appointment with:', studentName, 'and interviewer ID:', interviewerId);
+        action("onSave")(studentName, interviewerId);
+      }}
+      onCancel={() => {
+        console.log('Cancel button clicked for creating appointment');
+        action("onCancel")();
+      }}
+    />
+  ))
+  .add('Edit', () => (
+    <Form
+      student="Student Name" // Provide a name
+      interviewer={1}
+      interviewers={interviewers}
+      onSave={(studentName, interviewerId) => {
+        console.log('Editing appointment with:', studentName, 'and interviewer ID:', interviewerId);
+        action("onSave")(studentName, interviewerId);
+      }}
+      onCancel={() => {
+        console.log('Cancel button clicked for editing appointment');
+        action("onCancel")();
+        
+      }}
+    />
+  ));
