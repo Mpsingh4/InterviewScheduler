@@ -2,6 +2,7 @@ import React, {useState} from "react";
 
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
+import { Fragment } from "react";
 
 import "index.scss";
 import Button from "components/Button";
@@ -170,4 +171,20 @@ storiesOf("InterviewerList", module)
         action("onCancel")();
       }}
     />
+  ))
+  .add("Appointment Empty", () => (
+    <Fragment>
+      <Appointment id={1} time="4pm" />
+      <Appointment time="5pm" />
+    </Fragment>
+  ))
+  .add("Appointment Booked", () => (
+    <Fragment>
+      <Appointment
+        id={1}
+        time="4pm"
+        interview={{ student: "Lydia Miller-Jones", interviewer: interviewers[0] }} // Provide an interviewer object here
+      />
+      <Appointment time="5pm" />
+    </Fragment>
   ));

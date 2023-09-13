@@ -1,115 +1,69 @@
-import React from 'react';
-import InterviewerList from "components/InterviewerList";
+import React, { useState } from "react";
 import Button from "components/Button";
-import { useState } from "react";
+import InterviewerList from "components/InterviewerList";
 
 export default function Form(props) {
-  const [studentName, setStudentName] = useState(props.student || "");
-  const [selectedInterviewer, setSelectedInterviewer] = useState(props.interviewer || null);
+  const [student, setStudent] = useState(props.student || "");
+  const [interviewer, setInterviewer] = useState(props.interviewer || null);
+  const [error, setError] = useState("");
 
-  const handleNameChange = (event) => {
-    setStudentName(event.target.value);
+  const reset = function () {
+    setStudent("");
+    setInterviewer(null);
+    setError("");
   };
 
-  const handleInterviewerChange = (interviewerId) => {
-    console.log("Selected interviewer:", interviewerId);
-    setSelectedInterviewer(interviewerId);
+  const cancel = function () {
+    reset();
+    props.onCancel();
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    props.onSave(studentName, selectedInterviewer);
+  const validate = function () {
+    if (student === "") {
+      setError("Student name cannot be blank");
+      return;
+    }
+
+    if (interviewer === null) {
+      setError("Please select an interviewer");
+      return;
+    }
+
+    setError("");
+    props.onSave(student, interviewer);
   };
-  
-
-  const { interviewer, interviewers, onSave, onCancel } = props;
-
 
   return (
     <main className="appointment__card appointment__card--create">
       <section className="appointment__card-left">
-        <form autoComplete="off" onSubmit={handleSubmit}>
+        <form autoComplete="off" onSubmit={(e) => e.preventDefault()}>
           <input
             className="appointment__create-input text--semi-bold"
             name="name"
             type="text"
             placeholder="Enter Student Name"
-            value={studentName}
-            onChange={handleNameChange}
+            value={student}
+            onChange={(e) => setStudent(e.target.value)}
+            data-testid="student-name-input"
           />
-          <InterviewerList
-            interviewer={selectedInterviewer}
-            interviewers={interviewers}
-            onChange={handleInterviewerChange}
-          />
-          <section className="appointment__actions">
-            <Button danger onClick={onCancel}>
-              Cancel
-            </Button>
-            <Button confirm type="submit">
-              Save
-            </Button>
-          </section>
         </form>
+        <section className="appointment__validation">{error}</section>
+        <InterviewerList
+          interviewers={props.interviewers}
+          value={interviewer}
+          onChange={setInterviewer}
+        />
+      </section>
+      <section className="appointment__card-right">
+        <section className="appointment__actions">
+          <Button danger onClick={cancel}>
+            Cancel
+          </Button>
+          <Button confirm onClick={validate}>
+            Save
+          </Button>
+        </section>
       </section>
     </main>
   );
 }
-
-
-
-// import React from 'react';
-// import InterviewerList from "components/InterviewerList";
-// import Button from "components/Button";
-// import { useState } from "react";
-
-// export default function Form(props) {
-//   const [studentName, setStudentName] = useState(props.student || "");
-//   const [selectedInterviewer, setSelectedInterviewer] = useState(props.interviewer || null);
-
-//   const handleNameChange = (event) => {
-//     setStudentName(event.target.value);
-//   };
-
-//   const handleInterviewerChange = (interviewerId) => {
-//     console.log("Selected interviewer:", interviewerId);
-//     setSelectedInterviewer(interviewerId);
-//   };
-
-//   const handleSubmit = (event) => {
-//     event.preventDefault(); // Prevent the default form submission behavior
-//     props.onSave(studentName, selectedInterviewer);
-//   };
-
-//   const { interviewer, interviewers, onSave, onCancel } = props;
-
-//   return (
-//     <main className="appointment__card appointment__card--create">
-//       <section className="appointment__card-left">
-//         <form autoComplete="off" onSubmit={handleSubmit}> {/* Add onSubmit event handler here */}
-//           <input
-//             className="appointment__create-input text--semi-bold"
-//             name="name"
-//             type="text"
-//             placeholder="Enter Student Name"
-//             value={studentName}
-//             onChange={handleNameChange}
-//           />
-//           <InterviewerList
-//             interviewer={selectedInterviewer}
-//             interviewers={interviewers}
-//             onChange={handleInterviewerChange}
-//           />
-//           <section className="appointment__actions">
-//             <Button danger onClick={onCancel}>
-//               Cancel
-//             </Button>
-//             <Button confirm type="submit">
-//               Save
-//             </Button>
-//           </section>
-//         </form>
-//       </section>
-//     </main>
-//   );
-// }
