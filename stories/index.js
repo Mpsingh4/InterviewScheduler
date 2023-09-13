@@ -86,6 +86,17 @@ const interviewers = [
   { id: 5, name: "Sven Jones", avatar: "https://i.imgur.com/twYrpay.jpg" },
 ];
 
+const interviews = [
+  {
+    student: "Lydia Miller-Jones",
+    interviewer: { name: "Sylvia Palmer" },
+  },
+  {
+    student: "Fogell McLovin",
+    interviewer: { name: "Carter Lee" },
+  }
+];
+
 storiesOf("InterviewerList", module)
   .addParameters({
     backgrounds: [{ name: "dark", value: "#222f3e", default: true }],

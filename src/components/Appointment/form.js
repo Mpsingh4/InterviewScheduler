@@ -15,14 +15,20 @@ export default function Form(props) {
   const handleInterviewerChange = (interviewerId) => {
     setSelectedInterviewer(interviewerId);
   };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    props.onSave(studentName, selectedInterviewer);
+  };
   
 
   const { interviewer, interviewers, onSave, onCancel } = props;
 
+
   return (
     <main className="appointment__card appointment__card--create">
       <section className="appointment__card-left">
-        <form autoComplete="off">
+        <form autoComplete="off" onSubmit={handleSubmit}>
           <input
             className="appointment__create-input text--semi-bold"
             name="name"
@@ -31,22 +37,20 @@ export default function Form(props) {
             value={studentName}
             onChange={handleNameChange}
           />
-        </form>
-        <InterviewerList
-           interviewer={selectedInterviewer}
-          interviewers={interviewers}
-          onChange={handleInterviewerChange}
+          <InterviewerList
+            interviewer={selectedInterviewer}
+            interviewers={interviewers}
+            onChange={handleInterviewerChange}
           />
-      </section>
-      <section className="appointment__card-right">
-        <section className="appointment__actions">
-          <Button danger onClick={onCancel}>
-            Cancel
-          </Button>
-          <Button confirm onClick={() => onSave(studentName, selectedInterviewer)}>
-            Save
-          </Button>
-        </section>
+          <section className="appointment__actions">
+            <Button danger onClick={onCancel}>
+              Cancel
+            </Button>
+            <Button confirm type="submit">
+              Save
+            </Button>
+          </section>
+        </form>
       </section>
     </main>
   );
