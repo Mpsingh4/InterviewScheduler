@@ -107,9 +107,10 @@ storiesOf("InterviewerList", module)
   ))
   .add("Clickable", () => (
     <InterviewerList
-      interviewers={interviewers}
-      onChange={action("setInterviewer")}
-    />
+    value={selectedInterviewer} //changed to value still made no diff from interviewer ----------------------------------
+    interviewers={interviewers}
+    onChange={handleInterviewerChange}
+/>
   ));
 
   storiesOf("Appointment", module)
