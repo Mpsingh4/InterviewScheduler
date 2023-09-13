@@ -101,73 +101,37 @@ storiesOf("InterviewerList", module)
     />
   ));
 
-storiesOf("Appointment", module)
+  storiesOf("Appointment", module)
   .addParameters({
-    backgrounds: [{ name: "white", value: "#fff", default: true }]
+    backgrounds: [{ name: "white", value: "#fff", default: true }],
   })
   .add("Appointment", () => <Appointment />)
   .add("Appointment with Time", () => <Appointment time="12pm" />)
   .add("Header", () => <Header time="12pm" />)
   .add("Empty", () => <Empty onAdd={action("onAdd")} />)
-
-  const interviews = [
-    {
-      student: "Lydia Miller-Jones",
-      interviewer: { name: "Sylvia Palmer" },
-    },
-    {
-      student: "Fogell McLovin",
-      interviewer: { name: "Carter Lee" },
-    }
-  ];
-  
-
-  storiesOf("Show", module)
-  .addParameters({
-    backgrounds: [{ name: "white", value: "#fff", default: true }],
-  })
-  .add("Appointment Show", () => (
+  .add("Show", () => (
     interviews.map((interview, index) => (
-    <Show
-      key={index}
-      student={interview.student}
-      interviewer={interview.interviewer}
-      onEdit={action("onEdit")}
-      onDelete={action("onDelete")}
-    />
+      <Show
+        key={index}
+        student={interview.student}
+        interviewer={interview.interviewer}
+        onEdit={action("onEdit")}
+        onDelete={action("onDelete")}
+      />
     ))
-  ));
-
-  storiesOf("Confirm", module)
-  .addParameters({
-    backgrounds: [{ name: "white", value: "#fff", default: true }],
-  })
-  .add("Confirm Appointment", () => (
+  ))
+  .add("Confirm", () => (
     <Confirm
       message="Delete the appointment?"
       onConfirm={action("onConfirm")}
       onCancel={action("onCancel")}
     />
-  ));
-
-  storiesOf("Status", module)
-  .addParameters({
-    backgrounds: [{ name: "white", value: "#fff", default: true }],
-  })
-  .add("Status", () => <Status message="Deleting" />);
-
-  storiesOf("Error", module)
-  .addParameters({
-    backgrounds: [{ name: "white", value: "#fff", default: true }],
-  })
+  ))
+  .add("Status", () => <Status message="Deleting" />)
   .add("Error", () => (
-    <Error message="Could not delte appointment" onClose={action("onClose")}/>
-  ));
-
-
-
-  storiesOf('Form', module)
-  .add('Create', () => (
+    <Error message="Could not delete appointment" onClose={action("onClose")} />
+  ))
+  .add("Form Create", () => (
     <Form
       interviewers={interviewers}
       onSave={(studentName, interviewerId) => {
@@ -180,7 +144,7 @@ storiesOf("Appointment", module)
       }}
     />
   ))
-  .add('Edit', () => (
+  .add("Form Edit", () => (
     <Form
       student="Student Name" // Provide a name
       interviewer={1}
@@ -192,7 +156,6 @@ storiesOf("Appointment", module)
       onCancel={() => {
         console.log('Cancel button clicked for editing appointment');
         action("onCancel")();
-        
       }}
     />
   ));
