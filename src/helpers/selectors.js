@@ -9,3 +9,21 @@ export function getAppointmentsForDay(state, day) {
   const appointments = selectedDay.appointments.map(id => state.appointments[id]);
   return appointments;
 }
+
+export function getInterview(state, interview) {
+  if (!interview || !interview.interviewer) {
+    return null;
+  }
+
+  const { student, interviewer } = interview;
+  const matchingInterviewer = state.interviewers[interviewer];
+
+  if (!matchingInterviewer) {
+    return null;
+  }
+
+  return {
+    student,
+    interviewer: { ...matchingInterviewer },
+  };
+}
