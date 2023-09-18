@@ -22,7 +22,7 @@ export default function Appointment(props) {
       )}
       {mode === CREATE && (
         <Form
-          interviewers={[]} // Update with the actual interviewers data
+          interviewers={props.interviewers} // succesfully Updated with the actual interviewers data
           onCancel={back}
         />
       )}
