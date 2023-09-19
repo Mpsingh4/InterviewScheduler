@@ -31,6 +31,9 @@ export default function Application(props) {
       );
     }
   );
+    console.log("Appointments:", appointments);
+    console.log("State: ", state);
+    console.log("intermediate variable: ", getAppointmentsForDay(state, state.day))
 
   return (
     <main className="layout">

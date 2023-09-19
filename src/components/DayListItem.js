@@ -26,4 +26,4 @@ export default function DayListItem(props) {
   );
 };
 
-
+// {props.setDay(props.name)}>

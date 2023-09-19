@@ -64,7 +64,7 @@ export default function useApplicationData(props) {
     );
   });
 
-  const setDay = day => setState({ ...state, day });
+  const setDay = day => {console.log("setDay called with :", day); setState( prev => ({ ...prev, day }))};
   const setDays = days => setState(prev => ({ ...prev, days }));
 
   useEffect(() => {
@@ -80,7 +80,7 @@ export default function useApplicationData(props) {
         interviewers: all[2].data
       }));
     });  
-  }, [state])
+  }, [])
 
   return {state, setDay, bookInterview, cancelInterview};
 };
