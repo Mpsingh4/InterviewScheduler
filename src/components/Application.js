@@ -27,7 +27,7 @@ export default function Application(props) {
     return axios.put(`/api/appointments/${id}`, { interview: interview })
       .then(() => {
         setState({ ...state, appointments });
-      });
+      })
   };
 
   const cancelInterview = function(id) {
