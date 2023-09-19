@@ -74,7 +74,7 @@ export default function Appointment(props) {
         <Status message={mode} />
       )}
       {mode === CONFIRM && (
-        <Confirm message={mode} onCancel={() => transition(SHOW)} onConfirm={() => transition(EMPTY)} />
+        <Confirm message={mode} onCancel={back} onConfirm={cancelInterview} />
       )}
       {mode === EDIT && (
         <Form
