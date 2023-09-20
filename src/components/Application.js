@@ -2,7 +2,6 @@ import "components/Application.scss";
 import DayList from "./DayList";
 import Appointment from "./Appointment";
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors";
 import useApplicationData from "hooks/useApplicationData";
 
@@ -31,9 +30,9 @@ export default function Application(props) {
       );
     }
   );
-    console.log("Appointments:", appointments);
-    console.log("State: ", state);
-    console.log("intermediate variable: ", getAppointmentsForDay(state, state.day))
+    // console.log("Appointments:", appointments);
+    // console.log("State: ", state);
+    // console.log("intermediate variable: ", getAppointmentsForDay(state, state.day))
 
   return (
     <main className="layout">
