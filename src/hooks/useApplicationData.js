@@ -1,5 +1,4 @@
 import "components/Application.scss";
-// import Appointment from "Appointment/index.js"
 import Appointment from "components/Appointment";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
