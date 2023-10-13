@@ -30,14 +30,16 @@ export default function useApplicationData(props) {
     };
 
     // Find the day object for the currently selected day
-    const day = state.days.find(day => day.name === state.day);
+    // const day = state.days.find(day => day.name === state.day);
+
+    const days = updateSpots(state, appointments)
+    
 
     // Make a PUT request to save the interview data to the server
     return axios.put(`/api/appointments/${id}`, { interview: interview })
       .then(() => {
         // Update the state with the new appointments data and decrement available spots
-        setState({ ...state, appointments });
-        day.spots--;
+        setState({ ...state, days, appointments });
       })
   };
 
@@ -45,7 +47,7 @@ export default function useApplicationData(props) {
   const cancelInterview = function(id) {
     // Find the day object for the currently selected day
     const day = state.days.find(day => day.name === state.day);
-
+    
     // Make a DELETE request to remove the interview data from the server
     return axios.delete(`/api/appointments/${id}`)
       .then(() => {
@@ -84,6 +86,25 @@ export default function useApplicationData(props) {
 
   // Function to set the list of available days
   const setDays = days => setState(prev => ({ ...prev, days }));
+
+  //Function to update spots
+  const updateSpots = function(state, appointments) {
+    const days = JSON.parse(JSON.stringify(state.days));
+    const day = days.find(day => day.name === state.day);
+    let newSpots = 0;
+  
+    for (const appointmentId of day.appointments) {
+      const appointment = Object.values(appointments).find(appointment => appointmentId === appointment.id);
+      if (!appointment.interview) {
+        newSpots++;
+      }
+    }
+
+    day.spots = newSpots;
+    
+    return days;
+  };
+  
 
   // Use the useEffect hook to fetch initial data when the component mounts
   useEffect(() => {
