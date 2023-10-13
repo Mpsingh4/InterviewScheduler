@@ -24,7 +24,6 @@ export default function Appointment(props) {
   const { mode, transition, back } = useVisualMode(props.interview ? SHOW : EMPTY);
 
   const save = function(name, interviewer) {
-    console.log(interviewer);
     const interview = {
       student: name,
       interviewer
@@ -38,7 +37,6 @@ export default function Appointment(props) {
       })
       .catch((error) => {
         transition(ERROR_SAVE, true);
-        console.log("Error in index", error)
       });
   };
 

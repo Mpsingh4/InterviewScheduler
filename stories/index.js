@@ -147,11 +147,9 @@ storiesOf("InterviewerList", module)
     <Form
       interviewers={interviewers}
       onSave={(studentName, interviewerId) => {
-        console.log('Creating appointment with:', studentName, 'and interviewer ID:', interviewerId);
         action("onSave")(studentName, interviewerId);
       }}
       onCancel={() => {
-        console.log('Cancel button clicked for creating appointment');
         action("onCancel")();
       }}
     />
@@ -162,11 +160,9 @@ storiesOf("InterviewerList", module)
       interviewer={1}
       interviewers={interviewers}
       onSave={(studentName, interviewerId) => {
-        console.log('Editing appointment with:', studentName, 'and interviewer ID:', interviewerId);
         action("onSave")(studentName, interviewerId);
       }}
       onCancel={() => {
-        console.log('Cancel button clicked for editing appointment');
         action("onCancel")();
       }}
     />

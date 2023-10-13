@@ -79,7 +79,6 @@ export default function useApplicationData(props) {
 
   // Function to set the currently selected day
   const setDay = day => {
-    console.log("setDay called with :", day);
     setState(prev => ({ ...prev, day }));
   };
 
@@ -104,5 +103,5 @@ export default function useApplicationData(props) {
   }, []);
 
   // Return the application state and relevant functions as an object
-  return { state, setDay, bookInterview, cancelInterview };
+  return { state, setDay, bookInterview, cancelInterview, appointmentsList, setDays };
 };

@@ -1,4 +1,3 @@
-import React from "react";
 
 // Function to retrieve appointments for a specific day
 export function getAppointmentsForDay(state, day) {
