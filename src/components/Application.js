@@ -1,3 +1,4 @@
+// Import necessary styles and components
 import "components/Application.scss";
 import DayList from "./DayList";
 import Appointment from "./Appointment";
@@ -5,8 +6,9 @@ import React, { useState, useEffect } from "react";
 import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors";
 import useApplicationData from "hooks/useApplicationData";
 
-
+// Define the main Application component
 export default function Application(props) {
+  // Use the custom hook to initialize state and functions related to application data
   const {
     state,
     setDay,
@@ -14,8 +16,10 @@ export default function Application(props) {
     cancelInterview
   } = useApplicationData();
 
+  // Retrieve the list of interviewers for the currently selected day
   const interviewers = getInterviewersForDay(state, state.day);
 
+  // Retrieve and map appointments for the currently selected day
   const appointments = getAppointmentsForDay(state, state.day).map(
     appointment => {
       return (
@@ -31,6 +35,7 @@ export default function Application(props) {
     }
   );
 
+  // Render the main application layout
   return (
     <main className="layout">
       <section className="sidebar">
@@ -41,6 +46,7 @@ export default function Application(props) {
         />
         <hr className="sidebar__separator sidebar--centered" />
         <nav className="sidebar__menu">
+          {/* Render the DayList component with relevant props */}
           <DayList days={state.days} day={state.day} setDay={setDay} />
         </nav>
         <img
@@ -50,10 +56,10 @@ export default function Application(props) {
         />
       </section>
       <section className="schedule">
-        <section className="schedule">
-          {appointments}
-          <Appointment key="last" time="5pm" />
-        </section>
+        {/* Render the list of appointments */}
+        {appointments}
+        {/* Render an Appointment component for the last time slot */}
+        <Appointment key="last" time="5pm" />
       </section>
     </main>
   );
